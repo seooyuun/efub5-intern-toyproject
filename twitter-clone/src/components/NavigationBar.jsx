@@ -50,13 +50,14 @@ const NavItem = styled(Link)`
   font-size: 19px;
   padding: 11px;
   color: inherit;
+
   &:hover {
     background-color: #e7e7e8;
     border-radius: 9999px;
     color: inherit;
   }
 
-  font-weight: ${(props) => (props.active ? "bold" : "normal")};
+  font-weight: ${(props) => (props.$active ? "bold" : "normal")};
 `;
 
 const PostButton = styled.button`
@@ -72,7 +73,7 @@ const PostButton = styled.button`
   cursor: pointer;
 `;
 
-const Profile = styled.div`
+const Profile = styled(Link)`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -81,6 +82,8 @@ const Profile = styled.div`
   gap: 10px;
   border-radius: 9999px;
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 
   &:hover {
     background-color: #e7e7e8;
@@ -115,6 +118,14 @@ const Username = styled.div`
 
 function NavigationBar() {
   const { pathname } = useLocation();
+  const fakeUser = {
+    userId: "1",
+    username: "test_username",
+    handle: "@test_handle",
+    joinDate: "2023-07-26 01:06:55.323",
+    avatarUrl:
+      "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png",
+  }; // 여기에 로그인된 사용자 ID를 넣으세요
 
   return (
     <NavWrapper>
@@ -164,14 +175,17 @@ function NavigationBar() {
           </IconWrapper>
           Communities
         </NavItem>
-
-        <NavItem to="/profile" active={pathname === "/profile" ? 1 : 0}>
+        <NavItem
+          to={`/users/${fakeUser.userId}`}
+          $active={pathname.startsWith(`/users/${fakeUser.userId}`)}
+        >
           <IconWrapper>
             <FaRegUser />
           </IconWrapper>
           Profile
         </NavItem>
-        <NavItem>
+
+        <NavItem to="#">
           <IconWrapper>
             <IoEllipsisHorizontalCircleOutline />
           </IconWrapper>
@@ -179,18 +193,18 @@ function NavigationBar() {
         </NavItem>
         <PostButton>Post</PostButton>
       </MenuArea>
-      <Profile>
+
+      <Profile to={`/users/${fakeUser.userId}`}>
         <ProfileInfoLeft>
           <ProfileAvatar
             src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"
             alt="profile 이미지"
           />
           <ProfileInfo>
-            <DisplayName>디아</DisplayName>
-            <Username>@ddliaaa_</Username>
+            <DisplayName>{fakeUser.username}</DisplayName>
+            <Username>{fakeUser.handle}</Username>
           </ProfileInfo>
         </ProfileInfoLeft>
-
         <IoIosMore />
       </Profile>
     </NavWrapper>

@@ -9,8 +9,8 @@ const ListWrapper = styled.div`
   width: 100%;
   max-width: 600px; // 최대 600px
   min-height: 100vh;
-  border-left: 1px solid #eff3f4;
-  border-right: 1px solid #eff3f4;
+  border-left: 1px soluserId #eff3f4;
+  border-right: 1px soluserId #eff3f4;
 `;
 
 function TweetList() {
@@ -19,20 +19,35 @@ function TweetList() {
   useEffect(() => {
     setTweets([
       {
-        id: 1,
-        author: "seoyun",
-        content: "hello world",
-        createdAt: "2024-05-18",
+        userId: "1",
+        username: "test_username",
+        handle: "@test_handle",
+        joinDate: "2023-07-26 01:06:55.323",
+        posts: [
+          {
+            tweetId: 1,
+            content: "글입니다.",
+            createdAt: "2023-07-26T01:06:55.323",
+            modifiedAt: "2023-07-26T01:06:55.323",
+          },
+          {
+            tweetId: 2,
+            content: "글2입니다.",
+            createdAt: "2023-07-26T01:06:55.323",
+            modifiedAt: "2023-07-26T01:06:55.323",
+          },
+        ],
       },
-      { id: 2, author: "yuun", content: "my tweet", createdAt: "2024-05-18" },
     ]);
   }, []);
 
   return (
     <ListWrapper>
-      {tweets.map((tweet) => (
-        <TweetItem key={tweet.id} tweet={tweet} />
-      ))}
+      {tweets.flatMap((user) =>
+        user.posts.map((post) => (
+          <TweetItem key={post.tweetId} tweet={post} author={user} />
+        ))
+      )}
     </ListWrapper>
   );
 }

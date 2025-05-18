@@ -11,8 +11,8 @@ function App() {
       <GlobalStyle />
       <Routes>
         <Route path="/home" element={<Home />} />
-        <Route path="/tweets/:tweetId" element={<TweetDetail />} />{" "}
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/tweets/:tweetId" element={<TweetDetail />} />
+        <Route path="/users/:userId" element={<Profile />} />
         <Route path="/" element={<Home />} />
       </Routes>
     </Router>

@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import NavigationBar from "../components/NavigationBar";
 import { useParams } from "react-router-dom";
+import { IoIosMore } from "react-icons/io";
+import DeleteModal from "../components/DeleteModal";
+import { useState } from "react";
 import axios from "axios";
 import {
   FaRegComment,
@@ -23,6 +26,12 @@ const Wrapper = styled.div`
   color: black;
 `;
 
+const Top = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const Row = styled.div`
   display: flex;
   align-items: center;
@@ -35,7 +44,7 @@ const Avatar = styled.img`
   margin-right: 12px;
 `;
 
-const AuthorInfo = styled.div`
+const UsernameInfo = styled.div`
   display: flex;
   flex-direction: column;
 `;
@@ -83,34 +92,86 @@ const FooterIcon = styled.div`
   }
 `;
 
-function TweetDetail() {
-  const { id } = useParams();
+const MoreButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 9999px;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  // TODO: 실제 API 연동 시 여기서 fetch
-  const dummyTweet = {
-    id,
-    author: "seoyun",
-    username: "seoyun_dev",
-    content: "이건 트윗 상세 페이지입니다.",
-    createdAt: "2024년 5월 18일",
+  &:hover {
+    background-color: rgba(29, 155, 240, 0.2);
+    color: #1d9bf0;
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+function TweetDetail() {
+  const { tweetId } = useParams();
+  const [showModal, setShowModal] = useState(false);
+  const currentUsername = "test_username";
+
+  const handleDelete = () => {
+    alert(`트윗 ${userId} 삭제됨`);
+    setShowModal(false);
+  };
+
+  const fakeUser = {
+    userId: "1",
+    username: "test_username",
+    handle: "@test_handle",
+    joinDate: "2023-07-26 01:06:55.323",
     avatarUrl:
       "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png",
+    posts: [
+      {
+        tweetId: "1",
+        content: "글입니다.",
+        createdAt: "2023-07-26T01:06:55.323",
+        modifiedAt: "2023-07-26T01:06:55.323",
+      },
+      {
+        tweetId: "2",
+        content: "글2입니다.",
+        createdAt: "2023-07-26T01:06:55.323",
+        modifiedAt: "2023-07-26T01:06:55.323",
+      },
+    ],
   };
+
+  // tweetId로 해당 트윗을 찾음
+  const tweet = fakeUser.posts.find((post) => String(post.tweetId) === tweetId);
+
+  if (!tweet) {
+    return <div>트윗을 찾을 수 없습니다.</div>;
+  }
 
   return (
     <Layout>
       <NavigationBar />
       <Wrapper>
-        <Row>
-          <Avatar src={dummyTweet.avatarUrl} />
-          <AuthorInfo>
-            <DisplayName>{dummyTweet.author}</DisplayName>
-            <Username>@{dummyTweet.username}</Username>
-          </AuthorInfo>
-        </Row>
+        <Top>
+          <Row>
+            <Avatar src={fakeUser.avatarUrl} />
+            <UsernameInfo>
+              <DisplayName>{fakeUser.username}</DisplayName>
+              <Username>{fakeUser.handle}</Username>
+            </UsernameInfo>
+          </Row>
+          <MoreButton onClick={() => setShowModal(true)}>
+            <IoIosMore />
+          </MoreButton>
+        </Top>
 
-        <Content>{dummyTweet.content}</Content>
-        <Meta>{dummyTweet.createdAt} · 123 조회</Meta>
+        <Content>{tweet.content}</Content>
+        <Meta>{tweet.createdAt} · 123 조회</Meta>
 
         <Footer>
           <FooterIcon>
@@ -129,6 +190,12 @@ function TweetDetail() {
             <FaShareSquare />
           </FooterIcon>
         </Footer>
+        {showModal && (
+          <DeleteModal
+            onClose={() => setShowModal(false)}
+            onDelete={handleDelete}
+          />
+        )}
       </Wrapper>
     </Layout>
   );
