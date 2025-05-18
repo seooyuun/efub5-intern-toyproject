@@ -7,8 +7,8 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     margin: 0;
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
     font-family: Arial, sans-serif;
   }
 

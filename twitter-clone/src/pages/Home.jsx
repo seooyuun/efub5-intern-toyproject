@@ -1,5 +1,5 @@
 import NavigationBar from "../components/NavigationBar";
-import TweetForm from "../components/TweetCreate";
+import TweetCreate from "../components/TweetCreate";
 import TweetList from "../components/TweetList";
 import styled from "styled-components";
 
@@ -9,6 +9,9 @@ const Layout = styled.div`
 
 const Main = styled.main`
   flex: 1;
+  flex-direction: column;
+  display: flex;
+  width: 600px;
 `;
 
 function Home() {
@@ -16,7 +19,7 @@ function Home() {
     <Layout>
       <NavigationBar />
       <Main>
-        <TweetForm />
+        <TweetCreate />
         <TweetList />
       </Main>
     </Layout>

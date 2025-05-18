@@ -11,9 +11,8 @@ function App() {
       <GlobalStyle />
       <Routes>
         <Route path="/home" element={<Home />} />
-        <Route path="/tweets/:id" element={<TweetDetail />} />
+        <Route path="/tweets/:tweetId" element={<TweetDetail />} />{" "}
         <Route path="/profile" element={<Profile />} />
-        {/* 루트 경로에서 바로 /home으로 리디렉션 해도 좋습니다 */}
         <Route path="/" element={<Home />} />
       </Routes>
     </Router>

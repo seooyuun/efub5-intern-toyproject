@@ -4,11 +4,13 @@ import styled from "styled-components";
 import TweetItem from "./TweetItem";
 
 const ListWrapper = styled.div`
-  flex: 1;
-  background-color: black;
+  flex: none;
+  background-color: white;
+  width: 100%;
+  max-width: 600px; // 최대 600px
   min-height: 100vh;
-  border-left: 1px solid #2f3336;
-  border-right: 1px solid #2f3336;
+  border-left: 1px solid #eff3f4;
+  border-right: 1px solid #eff3f4;
 `;
 
 function TweetList() {
