@@ -38,6 +38,26 @@ function TweetList() {
           },
         ],
       },
+      {
+        userId: "2",
+        username: "yun_username",
+        handle: "@yun_handle",
+        joinDate: "2023-07-26 01:06:55.323",
+        posts: [
+          {
+            tweetId: 3,
+            content: "테스트하는중...",
+            createdAt: "2023-07-28T01:06:55.323",
+            modifiedAt: "2023-07-28T01:06:55.323",
+          },
+          {
+            tweetId: 4,
+            content: "테스트.............",
+            createdAt: "2023-07-29T01:06:55.323",
+            modifiedAt: "2023-07-29T01:06:55.323",
+          },
+        ],
+      },
     ]);
   }, []);
 

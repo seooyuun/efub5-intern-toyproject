@@ -83,13 +83,31 @@ function Profile() {
 
   useEffect(() => {
     async function fetchProfile() {
-      try {
-        const res = await axios.get(`/users/${userId}`);
-        setUser(res.data);
-        setTweets(res.data.posts);
-      } catch (err) {
-        console.error("Failed to fetch profile", err);
-      }
+      // fake data로 대체
+      const fakeUser = {
+        userId,
+        username: "test_username",
+        handle: "@test_handle",
+        joinDate: "2023-07-26 01:06:55.323",
+        avatarUrl: "",
+        posts: [
+          {
+            tweetId: "1",
+            content: "글입니다.",
+            createdAt: "2023-07-26T01:06:55.323",
+            modifiedAt: "2023-07-26T01:06:55.323",
+          },
+          {
+            tweetId: "2",
+            content: "글2입니다.",
+            createdAt: "2023-07-26T01:06:55.323",
+            modifiedAt: "2023-07-26T01:06:55.323",
+          },
+        ],
+      };
+
+      setUser(fakeUser);
+      setTweets(fakeUser.posts);
     }
 
     fetchProfile();
