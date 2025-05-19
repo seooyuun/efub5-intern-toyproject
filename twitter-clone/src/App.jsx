@@ -4,17 +4,27 @@ import Home from "./pages/Home";
 import TweetDetail from "./pages/TweetDetail";
 import Profile from "./pages/Profile";
 import GlobalStyle from "./styles/GlobalStyle";
+import styled from "styled-components";
+
+const PageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 0 200px;
+  background-color: white;
+`;
 
 function App() {
   return (
     <Router>
       <GlobalStyle />
-      <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/tweets/:tweetId" element={<TweetDetail />} />
-        <Route path="/users/:userId" element={<Profile />} />
-        <Route path="/" element={<Home />} />
-      </Routes>
+      <PageWrapper>
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/tweets/:tweetId" element={<TweetDetail />} />
+          <Route path="/users/:userId" element={<Profile />} />
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </PageWrapper>
     </Router>
   );
 }

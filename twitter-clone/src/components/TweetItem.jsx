@@ -11,6 +11,7 @@ import {
   FaShareSquare,
 } from "react-icons/fa";
 import DeleteModal from "./DeleteModal";
+import useRelativeTime from "../hooks/useRelativeTime";
 
 const TweetContainer = styled.div`
   padding: 15px;
@@ -116,6 +117,8 @@ function TweetItem({ tweet, author, currentUsername }) {
   const [showModal, setShowModal] = useState(false);
   const isMyTweet = author.username === currentUsername;
 
+  const relativeTime = useRelativeTime(tweet.createdAt);
+
   const handleDelete = () => {
     // 실제 tweetId 사용
     axios.delete(`/api/tweets/${tweet.tweetId}`).then(() => {
@@ -132,7 +135,7 @@ function TweetItem({ tweet, author, currentUsername }) {
             <TweetInfoLeft>
               <Username>{author.username}</Username>
               <Handle>
-                {author.handle} · {tweet.createdAt}
+                {author.handle} · {relativeTime}
               </Handle>
             </TweetInfoLeft>
 

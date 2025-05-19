@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { IoIosMore } from "react-icons/io";
 import DeleteModal from "../components/DeleteModal";
 import { useState } from "react";
+import useRelativeTime from "../hooks/useRelativeTime";
 import axios from "axios";
 import {
   FaRegComment,
@@ -148,6 +149,7 @@ function TweetDetail() {
 
   // tweetId로 해당 트윗을 찾음
   const tweet = fakeUser.posts.find((post) => String(post.tweetId) === tweetId);
+  const relativeTime = useRelativeTime(tweet.createdAt);
 
   if (!tweet) {
     return <div>트윗을 찾을 수 없습니다.</div>;
@@ -171,7 +173,7 @@ function TweetDetail() {
         </Top>
 
         <Content>{tweet.content}</Content>
-        <Meta>{tweet.createdAt} · 123 조회</Meta>
+        <Meta>{relativeTime} · 123 조회</Meta>
 
         <Footer>
           <FooterIcon>

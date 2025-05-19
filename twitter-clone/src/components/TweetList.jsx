@@ -33,8 +33,8 @@ function TweetList() {
           {
             tweetId: 2,
             content: "글2입니다.",
-            createdAt: "2023-07-26T01:06:55.323",
-            modifiedAt: "2023-07-26T01:06:55.323",
+            createdAt: "2023-07-30T01:06:55.323",
+            modifiedAt: "2023-07-30T01:06:55.323",
           },
         ],
       },
@@ -63,11 +63,19 @@ function TweetList() {
 
   return (
     <ListWrapper>
-      {tweets.flatMap((user) =>
-        user.posts.map((post) => (
-          <TweetItem key={post.tweetId} tweet={post} author={user} />
-        ))
-      )}
+      {tweets
+        .flatMap((user) =>
+          user.posts.map((post) => ({ ...post, author: user }))
+        )
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .map((post) => (
+          <TweetItem
+            key={post.tweetId}
+            tweet={post}
+            author={post.author}
+            currentUsername="test_username"
+          />
+        ))}
     </ListWrapper>
   );
 }

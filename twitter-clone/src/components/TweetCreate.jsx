@@ -39,6 +39,7 @@ const TextArea = styled.textarea`
   background-color: white;
   font-size: 18px;
   color: black;
+  font-family: inherit;
 
   &::placeholder {
     color: #596976;
