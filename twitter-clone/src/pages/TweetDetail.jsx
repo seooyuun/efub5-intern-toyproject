@@ -21,11 +21,23 @@ const Layout = styled.div`
 `;
 
 const Wrapper = styled.div`
-  padding: 20px;
   width: 600px;
-  margin: 0 auto;
+  height: 100vh;
+  overflow-y: auto;
   background-color: white;
   color: black;
+  padding: 20px;
+
+  margin-left: 264px; // NavigationBar 너비
+  margin-right: 350px; // RightSidebar 너비
+
+  @media (max-width: 1200px) {
+    margin-right: 0;
+  }
+
+  @media (max-width: 1000px) {
+    margin-left: 72px;
+  }
 `;
 
 const Top = styled.div`

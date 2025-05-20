@@ -21,6 +21,7 @@ const TweetContainer = styled.div`
 
 const Row = styled.div`
   display: flex;
+  width: 100%;
 `;
 
 const Column = styled.div`

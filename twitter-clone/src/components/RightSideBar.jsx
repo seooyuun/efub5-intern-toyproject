@@ -4,15 +4,34 @@ import { HiMiniMagnifyingGlass } from "react-icons/hi2";
 import { IoIosMore } from "react-icons/io";
 
 const Sidebar = styled.aside`
-  width: 350px;
+  position: fixed;
+  top: 0;
+  right: clamp(16px, 10vw, 200px);
+  height: 100vh;
+  width: 400px;
   padding: 16px;
-  color: black;
+  padding-top: 0;
+  background-color: white;
+  overflow-y: scroll;
+  z-index: 999;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (max-width: 1200px) {
+    display: none; // 화면 좁아지면 숨김
+  }
 `;
 
 const SearchBox = styled.div`
-  position: relative;
-  width: 100%;
-  margin-bottom: 16px;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 10;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin: 0;
 `;
 
 const SearchInput = styled.input`

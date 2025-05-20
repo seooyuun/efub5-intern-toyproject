@@ -14,17 +14,22 @@ import { GoHomeFill } from "react-icons/go";
 import { IoIosMore } from "react-icons/io";
 
 const NavWrapper = styled.nav`
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 264px;
+  padding-left: clamp(16px, 10vw, 200px);
+  padding-right: 16px;
   display: flex;
   flex-direction: column;
-  width: 259px;
-  padding: 0 8px;
-  height: 100vh;
+  justify-content: space-between;
+  z-index: 1000;
 `;
 
 const MenuArea = styled.div`
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
 `;
 
 const Logo = styled.div`
@@ -50,6 +55,7 @@ const NavItem = styled(Link)`
   font-size: 19px;
   padding: 11px;
   color: inherit;
+  width: fit-content;
 
   &:hover {
     background-color: #e7e7e8;
@@ -70,7 +76,7 @@ const PostButton = styled.button`
   font-weight: bold;
   margin-top: 20px;
   font-size: 16px;
-  width: 90%;
+  width: 230px;
   cursor: pointer;
 `;
 
@@ -85,6 +91,7 @@ const Profile = styled(Link)`
   cursor: pointer;
   text-decoration: none;
   color: inherit;
+  width: fit-content;
 
   &:hover {
     background-color: #e7e7e8;
@@ -191,7 +198,7 @@ function NavigationBar() {
           <IconWrapper>
             <IoEllipsisHorizontalCircleOutline />
           </IconWrapper>
-          더보기
+          More
         </NavItem>
         <PostButton>Post</PostButton>
       </MenuArea>

@@ -12,9 +12,22 @@ const Layout = styled.div`
 
 const ProfileWrapper = styled.div`
   width: 600px;
-  margin: 0 auto;
+  height: 100vh;
+  overflow-y: auto;
   background-color: white;
   color: black;
+  padding: 0 20px;
+
+  margin-left: 264px; // NavigationBar 너비
+  margin-right: 350px; // RightSidebar 너비
+
+  @media (max-width: 1200px) {
+    margin-right: 0; // Sidebar 사라질 때 공간 회수
+  }
+
+  @media (max-width: 1000px) {
+    margin-left: 72px; // 축소된 네비게이션 바 대응
+  }
 `;
 
 const Banner = styled.div`
