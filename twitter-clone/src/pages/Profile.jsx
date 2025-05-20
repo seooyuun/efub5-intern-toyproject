@@ -4,6 +4,7 @@ import styled from "styled-components";
 import NavigationBar from "../components/NavigationBar";
 import axios from "axios";
 import TweetItem from "../components/TweetItem";
+import RightSidebar from "../components/RightSideBar";
 
 const Layout = styled.div`
   display: flex;
@@ -147,6 +148,7 @@ function Profile() {
           ))}
         </TweetsSection>
       </ProfileWrapper>
+      <RightSidebar />
     </Layout>
   );
 }

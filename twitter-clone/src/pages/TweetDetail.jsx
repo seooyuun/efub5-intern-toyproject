@@ -14,6 +14,7 @@ import {
   FaRegBookmark,
   FaShareSquare,
 } from "react-icons/fa";
+import RightSidebar from "../components/RightSideBar";
 
 const Layout = styled.div`
   display: flex;
@@ -199,6 +200,7 @@ function TweetDetail() {
           />
         )}
       </Wrapper>
+      <RightSidebar />
     </Layout>
   );
 }

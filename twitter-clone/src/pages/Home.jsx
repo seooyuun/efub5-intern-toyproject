@@ -2,6 +2,7 @@ import NavigationBar from "../components/NavigationBar";
 import TweetCreate from "../components/TweetCreate";
 import TweetList from "../components/TweetList";
 import styled from "styled-components";
+import RightSidebar from "../components/RightSideBar";
 
 const Layout = styled.div`
   display: flex;
@@ -22,6 +23,7 @@ function Home() {
         <TweetCreate />
         <TweetList />
       </Main>
+      <RightSidebar />
     </Layout>
   );
 }
