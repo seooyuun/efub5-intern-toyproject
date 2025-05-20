@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { HiMiniMagnifyingGlass } from "react-icons/hi2";
+import { IoIosMore } from "react-icons/io";
 
 const Sidebar = styled.aside`
   width: 350px;
@@ -45,41 +46,60 @@ const Section = styled.div`
   margin-bottom: 16px;
 `;
 
+const SectionTitleRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const SectionTitle = styled.h3`
   font-size: 18px;
-  margin-bottom: 12px;
+  font-weight: bold;
+`;
+
+const MoreIcon = styled(IoIosMore)`
+  font-size: 18px;
+  color: #536471;
+  cursor: pointer;
 `;
 
 const TrendItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
   padding: 12px 0;
   border-bottom: 1px solid #eff3f4;
-  cursor: pointer;
 
   &:hover {
     background-color: #eff3f4;
   }
 `;
 
-const TrendMeta = styled.div`
-  font-size: 12px;
+const TrendText = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const TrendMeta = styled.span`
+  font-size: 13px;
   color: #536471;
-  margin-bottom: 2px;
 `;
 
-const TrendTitle = styled.div`
+const TrendTitle = styled.span`
+  font-size: 15px;
   font-weight: bold;
-  font-size: 14px;
+  color: black;
 `;
 
-const TrendPosts = styled.div`
-  font-size: 12px;
+const TrendPosts = styled.span`
+  font-size: 13px;
   color: #536471;
 `;
 
 const MoreLink = styled.div`
   color: #1d9bf0;
   font-size: 14px;
-  padding: 12px 0;
+  padding: 6px 0;
   cursor: pointer;
 
   &:hover {
@@ -87,11 +107,24 @@ const MoreLink = styled.div`
   }
 `;
 
+// 팔로우 추천
 const FollowItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  padding: 12px 0;
+`;
+
+const FollowUser = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Avatar = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 12px;
 `;
 
 const FollowName = styled.div`
@@ -99,13 +132,30 @@ const FollowName = styled.div`
   flex-direction: column;
 `;
 
+const FollowUsername = styled.div`
+  font-weight: bold;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  color: black;
+`;
+
+const FollowHandle = styled.div`
+  font-size: 14px;
+  color: #536471;
+`;
+
 const Button = styled.button`
-  background-color: #1d9bf0;
+  background-color: black;
   color: white;
   padding: 6px 12px;
   border-radius: 9999px;
   border: none;
   cursor: pointer;
+
+  &:hover {
+    background-color: #272c30;
+  }
 `;
 
 function RightSidebar() {
@@ -123,20 +173,33 @@ function RightSidebar() {
       </Section>
 
       <Section>
-        <SectionTitle>무슨 일이 일어나고 있나요?</SectionTitle>
+        <SectionTitleRow>
+          <SectionTitle>무슨 일이 일어나고 있나요?</SectionTitle>
+          <MoreIcon />
+        </SectionTitleRow>
         <TrendItem>
-          <TrendMeta>대한민국에서 트렌드 중</TrendMeta>
-          <TrendTitle>#채소드시나요</TrendTitle>
+          <TrendText>
+            <TrendMeta>대한민국에서 트렌드 중</TrendMeta>
+            <TrendTitle>나상현씨밴드</TrendTitle>
+            <TrendPosts>게시물 3,942개</TrendPosts>
+          </TrendText>
+          <MoreIcon />
         </TrendItem>
         <TrendItem>
-          <TrendMeta>대한민국에서 트렌드 중</TrendMeta>
-          <TrendTitle>데블스플랜</TrendTitle>
-          <TrendPosts>게시물 5,532개</TrendPosts>
+          <TrendText>
+            <TrendMeta>실시간 트렌드</TrendMeta>
+            <TrendTitle>약속의 8회</TrendTitle>
+            <TrendPosts>게시물 5,000개</TrendPosts>
+          </TrendText>
+          <MoreIcon />
         </TrendItem>
         <TrendItem>
-          <TrendMeta>실시간 트렌드</TrendMeta>
-          <TrendTitle>#넥스지</TrendTitle>
-          <TrendPosts>게시물 2,694개</TrendPosts>
+          <TrendText>
+            <TrendMeta>대한민국에서 트렌드 중</TrendMeta>
+            <TrendTitle>피크페스티벌</TrendTitle>
+            <TrendPosts>게시물 7,479개</TrendPosts>
+          </TrendText>
+          <MoreIcon />
         </TrendItem>
         <MoreLink>더 보기</MoreLink>
       </Section>
@@ -144,19 +207,36 @@ function RightSidebar() {
       <Section>
         <SectionTitle>팔로우 추천</SectionTitle>
         <FollowItem>
-          <FollowName>
-            <strong>@testtest</strong>
-            <span>테스트...</span>
-          </FollowName>
+          <FollowUser>
+            <Avatar src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png" />
+            <FollowName>
+              <FollowUsername>test.......</FollowUsername>
+              <FollowHandle>@testtttt</FollowHandle>
+            </FollowName>
+          </FollowUser>
           <Button>팔로우</Button>
         </FollowItem>
         <FollowItem>
-          <FollowName>
-            <strong>@jibgagosipda</strong>
-            <span>집가고싶다</span>
-          </FollowName>
+          <FollowUser>
+            <Avatar src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png" />
+            <FollowName>
+              <FollowUsername>진수</FollowUsername>
+              <FollowHandle>@wlstn</FollowHandle>
+            </FollowName>
+          </FollowUser>
           <Button>팔로우</Button>
         </FollowItem>
+        <FollowItem>
+          <FollowUser>
+            <Avatar src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png" />
+            <FollowName>
+              <FollowUsername>테스트중...</FollowUsername>
+              <FollowHandle>@test_test</FollowHandle>
+            </FollowName>
+          </FollowUser>
+          <Button>팔로우</Button>
+        </FollowItem>
+        <MoreLink>더 보기</MoreLink>
       </Section>
     </Sidebar>
   );
