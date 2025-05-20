@@ -55,6 +55,7 @@ const NavItem = styled(Link)`
     background-color: #e7e7e8;
     border-radius: 9999px;
     color: inherit;
+    font-weight: bold;
   }
 
   font-weight: ${(props) => (props.$active ? "bold" : "normal")};
@@ -87,6 +88,7 @@ const Profile = styled(Link)`
 
   &:hover {
     background-color: #e7e7e8;
+    color: inherit;
   }
 `;
 
@@ -133,7 +135,7 @@ function NavigationBar() {
         <Logo>
           <FaXTwitter />
         </Logo>
-        <NavItem to="/home" active={pathname === "/home" ? 1 : 0}>
+        <NavItem to="/home" $active={pathname === "/home"}>
           <IconWrapper>
             <GoHomeFill />
           </IconWrapper>

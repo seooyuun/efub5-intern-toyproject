@@ -9,7 +9,8 @@ import styled from "styled-components";
 const PageWrapper = styled.div`
   display: flex;
   justify-content: center;
-  padding: 0 200px;
+  width: 100%;
+  padding: 0 clamp(16px, 10vw, 200px);
   background-color: white;
 `;
 
