@@ -4,23 +4,19 @@ import { HiMiniMagnifyingGlass } from "react-icons/hi2";
 import { IoIosMore } from "react-icons/io";
 
 const Sidebar = styled.aside`
-  position: fixed;
-  top: 0;
-  right: clamp(16px, 10vw, 200px);
   height: 100vh;
-  width: 400px;
-  padding: 16px;
-  padding-top: 0;
+  width: 350px;
+  padding: 0 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 1000;
+
   background-color: white;
   overflow-y: scroll;
-  z-index: 999;
 
   &::-webkit-scrollbar {
     display: none;
-  }
-
-  @media (max-width: 1200px) {
-    display: none; // 화면 좁아지면 숨김
   }
 `;
 
@@ -61,7 +57,7 @@ const SearchIcon = styled(HiMiniMagnifyingGlass)`
 const Section = styled.div`
   border: 1px solid #eff3f4;
   border-radius: 16px;
-  padding: 16px;
+  padding: 11px 0px;
   margin-bottom: 16px;
 `;
 
@@ -74,6 +70,15 @@ const SectionTitleRow = styled.div`
 const SectionTitle = styled.h3`
   font-size: 18px;
   font-weight: bold;
+  padding: 0 15px;
+  margin: 0;
+`;
+
+const SectionText = styled.p`
+  font-size: 14px;
+  padding: 2px 15px;
+  margin: 5px 0px;
+  color: #333;
 `;
 
 const MoreIcon = styled(IoIosMore)`
@@ -86,8 +91,10 @@ const TrendItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: start;
-  padding: 12px 0;
+  padding: 12px 15px;
   border-bottom: 1px solid #eff3f4;
+  width: 100%;
+  box-sizing: border-box;
 
   &:hover {
     background-color: #eff3f4;
@@ -118,7 +125,7 @@ const TrendPosts = styled.span`
 const MoreLink = styled.div`
   color: #1d9bf0;
   font-size: 14px;
-  padding: 6px 0;
+  padding: 15px 0px 0px 15px;
   cursor: pointer;
 
   &:hover {
@@ -131,7 +138,7 @@ const FollowItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 0;
+  padding: 12px 15px;
 `;
 
 const FollowUser = styled.div`
@@ -164,16 +171,33 @@ const FollowHandle = styled.div`
   color: #536471;
 `;
 
-const Button = styled.button`
-  background-color: black;
+const SubscribeButton = styled.button`
+  background-color: #1d9bf0;
   color: white;
-  padding: 6px 12px;
-  border-radius: 9999px;
   border: none;
+  padding: 8px 16px;
+  margin-left: 15px;
+  border-radius: 9999px;
   cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
 
   &:hover {
-    background-color: #272c30;
+    background-color: #1a8cd8;
+  }
+`;
+
+const FollowButton = styled.button`
+  background-color: black;
+  color: #ffffff;
+  padding: 5px 15px;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+
+  &:hover {
+    background-color: #e8f4fd;
   }
 `;
 
@@ -187,14 +211,13 @@ function RightSidebar() {
 
       <Section>
         <SectionTitle>Premium 구독하기</SectionTitle>
-        <p>구독하여 새로운 기능을 이용해 보세요.</p>
-        <Button>구독하기</Button>
+        <SectionText>구독하여 새로운 기능을 이용해 보세요.</SectionText>
+        <SubscribeButton>구독하기</SubscribeButton>
       </Section>
 
       <Section>
         <SectionTitleRow>
           <SectionTitle>무슨 일이 일어나고 있나요?</SectionTitle>
-          <MoreIcon />
         </SectionTitleRow>
         <TrendItem>
           <TrendText>
@@ -233,7 +256,7 @@ function RightSidebar() {
               <FollowHandle>@testtttt</FollowHandle>
             </FollowName>
           </FollowUser>
-          <Button>팔로우</Button>
+          <FollowButton>팔로우</FollowButton>
         </FollowItem>
         <FollowItem>
           <FollowUser>
@@ -243,7 +266,7 @@ function RightSidebar() {
               <FollowHandle>@wlstn</FollowHandle>
             </FollowName>
           </FollowUser>
-          <Button>팔로우</Button>
+          <FollowButton>팔로우</FollowButton>
         </FollowItem>
         <FollowItem>
           <FollowUser>
@@ -253,7 +276,7 @@ function RightSidebar() {
               <FollowHandle>@test_test</FollowHandle>
             </FollowName>
           </FollowUser>
-          <Button>팔로우</Button>
+          <FollowButton>팔로우</FollowButton>
         </FollowItem>
         <MoreLink>더 보기</MoreLink>
       </Section>

@@ -14,13 +14,8 @@ import { GoHomeFill } from "react-icons/go";
 import { IoIosMore } from "react-icons/io";
 
 const NavWrapper = styled.nav`
-  position: fixed;
-  top: 0;
-  left: 0;
   height: 100vh;
-  width: 264px;
-  padding-left: clamp(16px, 10vw, 200px);
-  padding-right: 16px;
+  width: 260px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

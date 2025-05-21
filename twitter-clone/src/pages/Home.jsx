@@ -1,12 +1,7 @@
-import NavigationBar from "../components/NavigationBar";
+import PageLayout from "../components/PageLayout";
 import TweetCreate from "../components/TweetCreate";
 import TweetList from "../components/TweetList";
 import styled from "styled-components";
-import RightSidebar from "../components/RightSideBar";
-
-const Layout = styled.div`
-  display: flex;
-`;
 
 const TabWrapper = styled.div`
   display: flex;
@@ -48,47 +43,16 @@ const ActiveTab = styled(Tab)`
   }
 `;
 
-const Main = styled.main`
-  flex: 1;
-  width: 600px;
-  height: 100vh;
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  margin-left: 300px;
-  margin-right: 400px;
-
-  @media (max-width: 1200px) {
-    margin-right: 0; // 사이드바 사라질 때 공간 확보
-  }
-
-  @media (max-width: 1000px) {
-    margin-left: 72px; // 축소된 네비게이션 바 대응
-  }
-
-  @media (max-width: 640px) {
-    width: 100%; // 모바일 대응 (너비 줄이기)
-    padding: 0 12px;
-  }
-`;
-
 function Home() {
   return (
-    <Layout>
-      <NavigationBar />
-      <Main>
-        <TabWrapper>
-          <Tab>추천</Tab>
-          <ActiveTab>팔로잉</ActiveTab>
-        </TabWrapper>
-        <TweetCreate />
-        <TweetList />
-      </Main>
-      <RightSidebar />
-    </Layout>
+    <PageLayout>
+      <TabWrapper>
+        <Tab>추천</Tab>
+        <ActiveTab>팔로잉</ActiveTab>
+      </TabWrapper>
+      <TweetCreate />
+      <TweetList />
+    </PageLayout>
   );
 }
 

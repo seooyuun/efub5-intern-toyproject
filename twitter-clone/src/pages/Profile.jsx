@@ -1,34 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import PageLayout from "../components/PageLayout";
 import styled from "styled-components";
-import NavigationBar from "../components/NavigationBar";
-import axios from "axios";
 import TweetItem from "../components/TweetItem";
-import RightSidebar from "../components/RightSideBar";
-
-const Layout = styled.div`
-  display: flex;
-`;
-
-const ProfileWrapper = styled.div`
-  width: 600px;
-  height: 100vh;
-  overflow-y: auto;
-  background-color: white;
-  color: black;
-  padding: 0 20px;
-
-  margin-left: 264px; // NavigationBar 너비
-  margin-right: 350px; // RightSidebar 너비
-
-  @media (max-width: 1200px) {
-    margin-right: 0; // Sidebar 사라질 때 공간 회수
-  }
-
-  @media (max-width: 1000px) {
-    margin-left: 72px; // 축소된 네비게이션 바 대응
-  }
-`;
 
 const Banner = styled.div`
   height: 200px;
@@ -93,11 +67,8 @@ function Profile() {
   const [user, setUser] = useState(null);
   const [tweets, setTweets] = useState([]);
 
-  const currentUserId = "1";
-
   useEffect(() => {
     async function fetchProfile() {
-      // fake data로 대체
       const fakeUser = {
         userId,
         username: "test_username",
@@ -130,39 +101,34 @@ function Profile() {
   if (!user) return <div>Loading...</div>;
 
   return (
-    <Layout>
-      <NavigationBar />
-      <ProfileWrapper>
-        <Banner />
-        <Avatar
-          src={
-            user.avatarUrl ||
-            "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"
-          }
-        />
-        <InfoSection>
-          <DisplayName>{user.username}</DisplayName>
-          <Username>{user.handle}</Username>
-          <JoinedDate>가입일: {user.joinDate.slice(0, 10)}</JoinedDate>
-          <FollowInfo>
-            <p>팔로잉</p>
-            <p>팔로워</p>
-          </FollowInfo>
-        </InfoSection>
-
-        <TweetsSection>
-          {tweets.map((tweet) => (
-            <TweetItem
-              key={tweet.tweetId}
-              tweet={tweet}
-              author={{ username: user.username, handle: user.handle }}
-              currentUsername={currentUserId}
-            />
-          ))}
-        </TweetsSection>
-      </ProfileWrapper>
-      <RightSidebar />
-    </Layout>
+    <PageLayout>
+      <Banner />
+      <Avatar
+        src={
+          user.avatarUrl ||
+          "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"
+        }
+      />
+      <InfoSection>
+        <DisplayName>{user.username}</DisplayName>
+        <Username>{user.handle}</Username>
+        <JoinedDate>가입일: {user.joinDate.slice(0, 10)}</JoinedDate>
+        <FollowInfo>
+          <p>팔로잉</p>
+          <p>팔로워</p>
+        </FollowInfo>
+      </InfoSection>
+      <TweetsSection>
+        {tweets.map((tweet) => (
+          <TweetItem
+            key={tweet.tweetId}
+            tweet={tweet}
+            author={{ username: user.username, handle: user.handle }}
+            currentUsername={"1"}
+          />
+        ))}
+      </TweetsSection>
+    </PageLayout>
   );
 }
 

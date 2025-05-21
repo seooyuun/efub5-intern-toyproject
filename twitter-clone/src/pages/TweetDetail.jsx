@@ -1,12 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import NavigationBar from "../components/NavigationBar";
+import PageLayout from "../components/PageLayout";
 import { useParams } from "react-router-dom";
 import { IoIosMore } from "react-icons/io";
 import DeleteModal from "../components/DeleteModal";
-import { useState } from "react";
 import useRelativeTime from "../hooks/useRelativeTime";
-import axios from "axios";
 import {
   FaRegComment,
   FaRetweet,
@@ -14,31 +12,6 @@ import {
   FaRegBookmark,
   FaShareSquare,
 } from "react-icons/fa";
-import RightSidebar from "../components/RightSideBar";
-
-const Layout = styled.div`
-  display: flex;
-`;
-
-const Wrapper = styled.div`
-  width: 600px;
-  height: 100vh;
-  overflow-y: auto;
-  background-color: white;
-  color: black;
-  padding: 20px;
-
-  margin-left: 264px; // NavigationBar 너비
-  margin-right: 350px; // RightSidebar 너비
-
-  @media (max-width: 1200px) {
-    margin-right: 0;
-  }
-
-  @media (max-width: 1000px) {
-    margin-left: 72px;
-  }
-`;
 
 const Top = styled.div`
   display: flex;
@@ -130,12 +103,6 @@ const MoreButton = styled.button`
 function TweetDetail() {
   const { tweetId } = useParams();
   const [showModal, setShowModal] = useState(false);
-  const currentUsername = "test_username";
-
-  const handleDelete = () => {
-    alert(`트윗 ${userId} 삭제됨`);
-    setShowModal(false);
-  };
 
   const fakeUser = {
     userId: "1",
@@ -160,60 +127,59 @@ function TweetDetail() {
     ],
   };
 
-  // tweetId로 해당 트윗을 찾음
   const tweet = fakeUser.posts.find((post) => String(post.tweetId) === tweetId);
+  if (!tweet) return <div>트윗을 찾을 수 없습니다.</div>;
+
   const relativeTime = useRelativeTime(tweet.createdAt);
 
-  if (!tweet) {
-    return <div>트윗을 찾을 수 없습니다.</div>;
-  }
+  const handleDelete = () => {
+    alert(`트윗 ${tweetId} 삭제됨`);
+    setShowModal(false);
+  };
 
   return (
-    <Layout>
-      <NavigationBar />
-      <Wrapper>
-        <Top>
-          <Row>
-            <Avatar src={fakeUser.avatarUrl} />
-            <UsernameInfo>
-              <DisplayName>{fakeUser.username}</DisplayName>
-              <Username>{fakeUser.handle}</Username>
-            </UsernameInfo>
-          </Row>
-          <MoreButton onClick={() => setShowModal(true)}>
-            <IoIosMore />
-          </MoreButton>
-        </Top>
+    <PageLayout>
+      <Top>
+        <Row>
+          <Avatar src={fakeUser.avatarUrl} />
+          <UsernameInfo>
+            <DisplayName>{fakeUser.username}</DisplayName>
+            <Username>{fakeUser.handle}</Username>
+          </UsernameInfo>
+        </Row>
+        <MoreButton onClick={() => setShowModal(true)}>
+          <IoIosMore />
+        </MoreButton>
+      </Top>
 
-        <Content>{tweet.content}</Content>
-        <Meta>{relativeTime} · 123 조회</Meta>
+      <Content>{tweet.content}</Content>
+      <Meta>{relativeTime} · 123 조회</Meta>
 
-        <Footer>
-          <FooterIcon>
-            <FaRegComment /> 3
-          </FooterIcon>
-          <FooterIcon>
-            <FaRetweet /> 5
-          </FooterIcon>
-          <FooterIcon>
-            <FaRegHeart /> 10
-          </FooterIcon>
-          <FooterIcon>
-            <FaRegBookmark />
-          </FooterIcon>
-          <FooterIcon>
-            <FaShareSquare />
-          </FooterIcon>
-        </Footer>
-        {showModal && (
-          <DeleteModal
-            onClose={() => setShowModal(false)}
-            onDelete={handleDelete}
-          />
-        )}
-      </Wrapper>
-      <RightSidebar />
-    </Layout>
+      <Footer>
+        <FooterIcon>
+          <FaRegComment /> 3
+        </FooterIcon>
+        <FooterIcon>
+          <FaRetweet /> 5
+        </FooterIcon>
+        <FooterIcon>
+          <FaRegHeart /> 10
+        </FooterIcon>
+        <FooterIcon>
+          <FaRegBookmark />
+        </FooterIcon>
+        <FooterIcon>
+          <FaShareSquare />
+        </FooterIcon>
+      </Footer>
+
+      {showModal && (
+        <DeleteModal
+          onClose={() => setShowModal(false)}
+          onDelete={handleDelete}
+        />
+      )}
+    </PageLayout>
   );
 }
 
