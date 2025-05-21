@@ -40,14 +40,15 @@ const Avatar = styled.img`
 const Username = styled.div`
   font-weight: bold;
   margin-bottom: 4px;
-  font-size: 12px;
 `;
 
 const Handle = styled.div`
   color: #71767b;
   font-size: 12px;
+  margin-top: 2px;
   margin-bottom: 4px;
   margin-left: 4px;
+  vertical-align: text-bottom;
 `;
 
 const TweetInfo = styled.div`
@@ -58,6 +59,7 @@ const TweetInfo = styled.div`
 
 const TweetInfoLeft = styled.div`
   display: flex;
+  font-size: 14px;
 `;
 
 const Content = styled.div`
@@ -92,6 +94,7 @@ const MoreButton = styled.button`
   border: none;
   cursor: pointer;
   padding: 8px;
+  padding-bottom: 0;
   border-radius: 9999px;
   transition: background-color 0.5s ease;
 
