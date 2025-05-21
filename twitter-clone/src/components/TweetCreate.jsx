@@ -33,7 +33,7 @@ const Avatar = styled.img`
 
 const TextArea = styled.textarea`
   width: 100%;
-  padding: 12px;
+  padding: 6px 12px;
   border: none;
   resize: none;
   background-color: white;
@@ -71,7 +71,7 @@ const IconGroup = styled.div`
 const Button = styled.button`
   margin-top: 12px;
   padding: 8px 16px;
-  background-color: black;
+  background-color: ${(props) => (props.active ? "black" : "#87898c")};
   color: white;
   border: none;
   border-radius: 20px;
@@ -119,7 +119,9 @@ function TweetCreate({ onPost }) {
                 <IoLocationOutline />
               </span>
             </IconGroup>
-            <Button type="submit">Post</Button>
+            <Button type="submit" active={content.trim().length > 0}>
+              Post
+            </Button>
           </Footer>
         </Column>
       </Row>

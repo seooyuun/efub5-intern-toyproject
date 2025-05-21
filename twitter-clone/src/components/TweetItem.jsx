@@ -89,12 +89,33 @@ const FooterIcon = styled.div`
   }
 `;
 
+const FooterRetweetIcon = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+
+  &:hover {
+    color: #00b97c;
+  }
+`;
+
+const FooterHeartIcon = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+
+  &:hover {
+    color: #f8187f;
+  }
+`;
+
 const MoreButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
   padding: 8px;
-  padding-bottom: 0;
   border-radius: 9999px;
   transition: background-color 0.5s ease;
 
@@ -163,12 +184,12 @@ function TweetItem({ tweet, author, currentUsername }) {
             <FooterIcon>
               <FaRegComment /> 0
             </FooterIcon>
-            <FooterIcon>
+            <FooterRetweetIcon>
               <FaRetweet /> 0
-            </FooterIcon>
-            <FooterIcon>
+            </FooterRetweetIcon>
+            <FooterHeartIcon>
               <FaRegHeart /> 0
-            </FooterIcon>
+            </FooterHeartIcon>
             <FooterIcon>
               <FaRegBookmark />
             </FooterIcon>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import PageLayout from "../components/PageLayout";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { IoIosMore } from "react-icons/io";
 import DeleteModal from "../components/DeleteModal";
 import useRelativeTime from "../hooks/useRelativeTime";
@@ -12,11 +12,36 @@ import {
   FaRegBookmark,
   FaShareSquare,
 } from "react-icons/fa";
+import { IoArrowBack } from "react-icons/io5";
+
+const Header = styled.div`
+  display: flex;
+  align-items: center;
+  height: 53px;
+  font-size: 20px;
+  font-weight: bold;
+  border-bottom: 1px solid #eff3f4;
+  margin-bottom: 12px;
+`;
+
+const BackButton = styled.button`
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 30px;
+  padding: 0;
+
+  &:hover {
+    color: #1d9bf0;
+  }
+`;
 
 const Top = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-top: 15px;
 `;
 
 const Row = styled.div`
@@ -61,9 +86,8 @@ const Meta = styled.div`
 const Footer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px solid #eff3f4;
+  padding: 12px 0;
+  border-bottom: 1px solid #eff3f4;
   color: #536471;
   font-size: 16px;
 `;
@@ -76,6 +100,28 @@ const FooterIcon = styled.div`
 
   &:hover {
     color: #1d9bf0;
+  }
+`;
+
+const FooterRetweetIcon = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+
+  &:hover {
+    color: #00b97c;
+  }
+`;
+
+const FooterHeartIcon = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+
+  &:hover {
+    color: #f8187f;
   }
 `;
 
@@ -100,9 +146,75 @@ const MoreButton = styled.button`
   }
 `;
 
+const ReplyBox = styled.div`
+  display: flex;
+  gap: 12px;
+  padding-top: 16px;
+  border-bottom: 1px solid #eff3f4;
+  justify-content: space-between;
+`;
+
+const ReplyInput = styled.textarea`
+  width: 100%;
+  resize: none;
+  border: none;
+  border-radius: 12px;
+  padding: 10px;
+  font-size: 16px;
+  font-family: inherit;
+
+  &:focus {
+    outline: none;
+    border-color: #1d9bf0;
+  }
+`;
+
+const ReplyButton = styled.button`
+  background-color: ${(props) => (props.active ? "black" : "#87898c")};
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  height: 40px;
+  border-radius: 9999px;
+  font-weight: bold;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #1a8cd8;
+  }
+`;
+
+const CommentItem = styled.div`
+  padding: 12px 0;
+  border-top: 1px solid #f0f0f0;
+`;
+
+const CommentList = styled.div`
+  padding: 0;
+  margin-top: 0px;
+`;
+
+const CommentUsername = styled.div`
+  font-weight: bold;
+  font-size: 14px;
+`;
+
+const CommentContent = styled.div`
+  font-size: 14px;
+  margin-top: 4px;
+`;
+
+const CommentDate = styled.div`
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
+`;
+
 function TweetDetail() {
   const { tweetId } = useParams();
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
+  const [reply, setReply] = useState("");
 
   const fakeUser = {
     userId: "1",
@@ -127,7 +239,32 @@ function TweetDetail() {
     ],
   };
 
+  const fakeComments = [
+    {
+      commentId: "1",
+      tweetId: "1",
+      content: "댓글1 입니다.",
+      username: "디아",
+      createdDate: "2023-07-26 01:06:55.323",
+    },
+    {
+      commentId: "2",
+      tweetId: "1",
+      content: "댓글2 입니다.",
+      username: "디아",
+      createdDate: "2023-07-26 01:06:55.323",
+    },
+    {
+      commentId: "3",
+      tweetId: "2",
+      content: "다른 트윗의 댓글입니다.",
+      username: "소윤",
+      createdDate: "2023-07-26 01:06:55.323",
+    },
+  ];
+
   const tweet = fakeUser.posts.find((post) => String(post.tweetId) === tweetId);
+  const comments = fakeComments.filter((c) => c.tweetId === tweetId);
   if (!tweet) return <div>트윗을 찾을 수 없습니다.</div>;
 
   const relativeTime = useRelativeTime(tweet.createdAt);
@@ -137,8 +274,19 @@ function TweetDetail() {
     setShowModal(false);
   };
 
+  const handleReply = () => {
+    if (!reply.trim()) return;
+    setReply("");
+  };
+
   return (
     <PageLayout>
+      <Header>
+        <BackButton onClick={() => navigate(-1)}>
+          <IoArrowBack />
+        </BackButton>
+        게시물
+      </Header>
       <Top>
         <Row>
           <Avatar src={fakeUser.avatarUrl} />
@@ -159,12 +307,12 @@ function TweetDetail() {
         <FooterIcon>
           <FaRegComment /> 3
         </FooterIcon>
-        <FooterIcon>
+        <FooterRetweetIcon>
           <FaRetweet /> 5
-        </FooterIcon>
-        <FooterIcon>
+        </FooterRetweetIcon>
+        <FooterHeartIcon>
           <FaRegHeart /> 10
-        </FooterIcon>
+        </FooterHeartIcon>
         <FooterIcon>
           <FaRegBookmark />
         </FooterIcon>
@@ -172,6 +320,30 @@ function TweetDetail() {
           <FaShareSquare />
         </FooterIcon>
       </Footer>
+
+      <ReplyBox>
+        <Avatar src={fakeUser.avatarUrl} />
+        <div style={{ flex: 1 }}>
+          <ReplyInput
+            placeholder="답글 게시하기"
+            value={reply}
+            onChange={(e) => setReply(e.target.value)}
+          />
+        </div>
+        <ReplyButton onClick={handleReply} active={reply.trim().length > 0}>
+          답글
+        </ReplyButton>
+      </ReplyBox>
+
+      <CommentList>
+        {comments.map((comment) => (
+          <CommentItem key={comment.commentId}>
+            <CommentUsername>{comment.username}</CommentUsername>
+            <CommentContent>{comment.content}</CommentContent>
+            <CommentDate>{comment.createdDate.slice(0, 10)}</CommentDate>
+          </CommentItem>
+        ))}
+      </CommentList>
 
       {showModal && (
         <DeleteModal
