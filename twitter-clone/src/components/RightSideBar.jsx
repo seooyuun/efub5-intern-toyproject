@@ -10,9 +10,7 @@ const Sidebar = styled.aside`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  z-index: 1000;
 
-  background-color: white;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
@@ -23,8 +21,6 @@ const Sidebar = styled.aside`
 const SearchBox = styled.div`
   position: sticky;
   top: 0;
-  background-color: white;
-  z-index: 10;
   padding-top: 8px;
   padding-bottom: 8px;
   margin: 0;

@@ -7,6 +7,7 @@ import {
   FaRegComment,
   FaRetweet,
   FaRegHeart,
+  FaHeart,
   FaRegBookmark,
   FaShareSquare,
 } from "react-icons/fa";
@@ -106,8 +107,10 @@ const FooterHeartIcon = styled.div`
   gap: 6px;
   cursor: pointer;
 
+  color: ${({ liked }) => (liked ? "#f8187f" : "#536471")};
+
   &:hover {
-    color: #f8187f;
+    color: ${({ liked }) => (liked ? "#f8187f" : "#f8187f")};
   }
 `;
 
@@ -144,11 +147,23 @@ function TweetItem({ tweet, author, currentUsername }) {
 
   const relativeTime = useRelativeTime(tweet.createdAt);
 
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(tweet.likeCount || 0);
+
   const handleDelete = () => {
     // 실제 tweetId 사용
     axios.delete(`/api/tweets/${tweet.tweetId}`).then(() => {
       setShowModal(false);
     });
+  };
+
+  const handleLikeClick = () => {
+    if (liked) {
+      setLikeCount((prev) => prev - 1);
+    } else {
+      setLikeCount((prev) => prev + 1);
+    }
+    setLiked(!liked);
   };
 
   return (
@@ -187,8 +202,8 @@ function TweetItem({ tweet, author, currentUsername }) {
             <FooterRetweetIcon>
               <FaRetweet /> 0
             </FooterRetweetIcon>
-            <FooterHeartIcon>
-              <FaRegHeart /> 0
+            <FooterHeartIcon onClick={handleLikeClick} liked={liked}>
+              {liked ? <FaHeart /> : <FaRegHeart />} {likeCount}
             </FooterHeartIcon>
             <FooterIcon>
               <FaRegBookmark />

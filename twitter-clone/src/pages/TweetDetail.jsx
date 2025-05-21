@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import TweetComment from "../components/TweetComment";
 import PageLayout from "../components/PageLayout";
 import { useParams, useNavigate } from "react-router-dom";
 import { IoIosMore } from "react-icons/io";
@@ -9,6 +10,7 @@ import {
   FaRegComment,
   FaRetweet,
   FaRegHeart,
+  FaHeart,
   FaRegBookmark,
   FaShareSquare,
 } from "react-icons/fa";
@@ -120,8 +122,10 @@ const FooterHeartIcon = styled.div`
   gap: 6px;
   cursor: pointer;
 
+  color: ${({ liked }) => (liked ? "#f8187f" : "#536471")};
+
   &:hover {
-    color: #f8187f;
+    color: ${({ liked }) => (liked ? "#f8187f" : "#f8187f")};
   }
 `;
 
@@ -184,30 +188,9 @@ const ReplyButton = styled.button`
   }
 `;
 
-const CommentItem = styled.div`
-  padding: 12px 0;
-  border-top: 1px solid #f0f0f0;
-`;
-
 const CommentList = styled.div`
   padding: 0;
-  margin-top: 0px;
-`;
-
-const CommentUsername = styled.div`
-  font-weight: bold;
-  font-size: 14px;
-`;
-
-const CommentContent = styled.div`
-  font-size: 14px;
-  margin-top: 4px;
-`;
-
-const CommentDate = styled.div`
-  font-size: 12px;
-  color: #999;
-  margin-top: 4px;
+  margin-top: 0;
 `;
 
 function TweetDetail() {
@@ -215,6 +198,17 @@ function TweetDetail() {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const [reply, setReply] = useState("");
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(10);
+
+  const handleLikeClick = () => {
+    if (liked) {
+      setLikeCount((prev) => prev - 1);
+    } else {
+      setLikeCount((prev) => prev + 1);
+    }
+    setLiked(!liked);
+  };
 
   const fakeUser = {
     userId: "1",
@@ -244,14 +238,16 @@ function TweetDetail() {
       commentId: "1",
       tweetId: "1",
       content: "댓글1 입니다.",
-      username: "디아",
+      username: "윤",
+      handle: "@yuuuuun",
       createdDate: "2023-07-26 01:06:55.323",
     },
     {
       commentId: "2",
       tweetId: "1",
       content: "댓글2 입니다.",
-      username: "디아",
+      username: "윤",
+      handle: "@yuuuuun",
       createdDate: "2023-07-26 01:06:55.323",
     },
     {
@@ -310,8 +306,8 @@ function TweetDetail() {
         <FooterRetweetIcon>
           <FaRetweet /> 5
         </FooterRetweetIcon>
-        <FooterHeartIcon>
-          <FaRegHeart /> 10
+        <FooterHeartIcon onClick={handleLikeClick} liked={liked}>
+          {liked ? <FaHeart /> : <FaRegHeart />} {likeCount}
         </FooterHeartIcon>
         <FooterIcon>
           <FaRegBookmark />
@@ -337,11 +333,7 @@ function TweetDetail() {
 
       <CommentList>
         {comments.map((comment) => (
-          <CommentItem key={comment.commentId}>
-            <CommentUsername>{comment.username}</CommentUsername>
-            <CommentContent>{comment.content}</CommentContent>
-            <CommentDate>{comment.createdDate.slice(0, 10)}</CommentDate>
-          </CommentItem>
+          <TweetComment key={comment.commentId} comment={comment} />
         ))}
       </CommentList>
 
