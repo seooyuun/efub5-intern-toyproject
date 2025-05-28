@@ -48,18 +48,21 @@ const ActiveTab = styled(Tab)`
 function Home() {
   const [tweets, setTweets] = useState([]);
 
+  useEffect(() => {
+    fetchTweets();
+  }, []);
+
   const fetchTweets = async () => {
     try {
       const data = await getTweets();
-      setTweets(data);
+      const sorted = data.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+      setTweets(sorted);
     } catch (error) {
       console.error("트윗 불러오기 실패:", error);
     }
   };
-
-  useEffect(() => {
-    fetchTweets();
-  }, []);
 
   return (
     <PageLayout>

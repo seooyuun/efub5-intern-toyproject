@@ -217,11 +217,14 @@ function TweetDetail() {
     fetchTweet();
   }, [tweetId]);
 
-  const handleDelete = () => {
-    // 추후 삭제 API 연동 가능
-    alert(`트윗 ${tweetId} 삭제됨`);
-    setShowModal(false);
-    navigate("/home");
+  const handleDelete = async () => {
+    try {
+      await deleteTweet(tweet.tweetId); // 실제 삭제 API 호출
+      setShowModal(false);
+      navigate("/home");
+    } catch (error) {
+      console.error("삭제 실패:", error);
+    }
   };
 
   const handleLikeClick = () => {

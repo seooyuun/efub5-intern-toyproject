@@ -15,7 +15,7 @@ export const getTweets = async () => {
   return res.data.tweets;
 };
 
-// 세부 화면의 트윗 개별 보기기
+// 세부 화면의 트윗 개별 보기
 export const getTweetDetail = async (tweetId) => {
   const res = await axios.get(`/tweets/${tweetId}`);
   return res.data;

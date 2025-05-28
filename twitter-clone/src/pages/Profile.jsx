@@ -4,6 +4,7 @@ import PageLayout from "../components/PageLayout";
 import styled from "styled-components";
 import TweetItem from "../components/TweetItem";
 import { getUserProfile } from "../api/user";
+import { getTweets } from "../api/tweet";
 
 const Banner = styled.div`
   height: 200px;
@@ -73,7 +74,11 @@ function Profile() {
       try {
         const data = await getUserProfile(userId);
         setUser(data);
-        setTweets([]); // ❗ 트윗 목록은 별도 API가 제공될 경우에 채워야 함
+
+        const allTweets = await getTweets();
+        const myTweets = allTweets.filter((tweet) => tweet.userId == userId);
+
+        setTweets(myTweets); // ❗ 트윗 목록은 별도 API가 제공될 경우에 채워야 함
       } catch (error) {
         console.error("프로필 불러오기 실패:", error);
       }
