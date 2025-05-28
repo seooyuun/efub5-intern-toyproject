@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import TweetComment from "../components/TweetComment";
 import PageLayout from "../components/PageLayout";
@@ -195,11 +195,34 @@ const CommentList = styled.div`
 
 function TweetDetail() {
   const { tweetId } = useParams();
-  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-  const [reply, setReply] = useState("");
+  const [tweet, setTweet] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(10);
+  const [likeCount, setLikeCount] = useState(0); // 서버 연동되면 변경
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchTweet() {
+      try {
+        const data = await getTweetDetail(tweetId);
+        setTweet(data);
+        setLoading(false);
+      } catch (err) {
+        console.error("트윗 상세 불러오기 실패:", err);
+        setLoading(false);
+      }
+    }
+
+    fetchTweet();
+  }, [tweetId]);
+
+  const handleDelete = () => {
+    // 추후 삭제 API 연동 가능
+    alert(`트윗 ${tweetId} 삭제됨`);
+    setShowModal(false);
+    navigate("/home");
+  };
 
   const handleLikeClick = () => {
     if (liked) {
@@ -210,70 +233,10 @@ function TweetDetail() {
     setLiked(!liked);
   };
 
-  const fakeUser = {
-    userId: "1",
-    username: "test_username",
-    handle: "@test_handle",
-    joinDate: "2023-07-26 01:06:55.323",
-    avatarUrl:
-      "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png",
-    posts: [
-      {
-        tweetId: "1",
-        content: "글입니다.",
-        createdAt: "2023-07-26T01:06:55.323",
-        modifiedAt: "2023-07-26T01:06:55.323",
-      },
-      {
-        tweetId: "2",
-        content: "글2입니다.",
-        createdAt: "2023-07-26T01:06:55.323",
-        modifiedAt: "2023-07-26T01:06:55.323",
-      },
-    ],
-  };
-
-  const fakeComments = [
-    {
-      commentId: "1",
-      tweetId: "1",
-      content: "댓글1 입니다.",
-      username: "윤",
-      handle: "@yuuuuun",
-      createdDate: "2023-07-26 01:06:55.323",
-    },
-    {
-      commentId: "2",
-      tweetId: "1",
-      content: "댓글2 입니다.",
-      username: "윤",
-      handle: "@yuuuuun",
-      createdDate: "2023-07-26 01:06:55.323",
-    },
-    {
-      commentId: "3",
-      tweetId: "2",
-      content: "다른 트윗의 댓글입니다.",
-      username: "소윤",
-      createdDate: "2023-07-26 01:06:55.323",
-    },
-  ];
-
-  const tweet = fakeUser.posts.find((post) => String(post.tweetId) === tweetId);
-  const comments = fakeComments.filter((c) => c.tweetId === tweetId);
+  if (loading) return <div>불러오는 중...</div>;
   if (!tweet) return <div>트윗을 찾을 수 없습니다.</div>;
 
-  const relativeTime = useRelativeTime(tweet.createdAt);
-
-  const handleDelete = () => {
-    alert(`트윗 ${tweetId} 삭제됨`);
-    setShowModal(false);
-  };
-
-  const handleReply = () => {
-    if (!reply.trim()) return;
-    setReply("");
-  };
+  const relativeTime = useRelativeTime(tweet.createdDate);
 
   return (
     <PageLayout>
@@ -283,12 +246,13 @@ function TweetDetail() {
         </BackButton>
         게시물
       </Header>
+
       <Top>
         <Row>
-          <Avatar src={fakeUser.avatarUrl} />
+          <Avatar src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png" />
           <UsernameInfo>
-            <DisplayName>{fakeUser.username}</DisplayName>
-            <Username>{fakeUser.handle}</Username>
+            <DisplayName>{tweet.username}</DisplayName>
+            <Username>{tweet.handle}</Username>
           </UsernameInfo>
         </Row>
         <MoreButton onClick={() => setShowModal(true)}>
@@ -301,10 +265,10 @@ function TweetDetail() {
 
       <Footer>
         <FooterIcon>
-          <FaRegComment /> 3
+          <FaRegComment /> 0
         </FooterIcon>
         <FooterRetweetIcon>
-          <FaRetweet /> 5
+          <FaRetweet /> 0
         </FooterRetweetIcon>
         <FooterHeartIcon onClick={handleLikeClick} liked={liked}>
           {liked ? <FaHeart /> : <FaRegHeart />} {likeCount}
@@ -316,26 +280,6 @@ function TweetDetail() {
           <FaShareSquare />
         </FooterIcon>
       </Footer>
-
-      <ReplyBox>
-        <Avatar src={fakeUser.avatarUrl} />
-        <div style={{ flex: 1 }}>
-          <ReplyInput
-            placeholder="답글 게시하기"
-            value={reply}
-            onChange={(e) => setReply(e.target.value)}
-          />
-        </div>
-        <ReplyButton onClick={handleReply} active={reply.trim().length > 0}>
-          답글
-        </ReplyButton>
-      </ReplyBox>
-
-      <CommentList>
-        {comments.map((comment) => (
-          <TweetComment key={comment.commentId} comment={comment} />
-        ))}
-      </CommentList>
 
       {showModal && (
         <DeleteModal

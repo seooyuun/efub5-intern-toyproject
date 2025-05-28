@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
 import { IoIosMore } from "react-icons/io";
 import {
   FaRegComment,
@@ -13,6 +12,7 @@ import {
 } from "react-icons/fa";
 import DeleteModal from "./DeleteModal";
 import useRelativeTime from "../hooks/useRelativeTime";
+import { deleteTweet } from "../api/tweet";
 
 const TweetContainer = styled.div`
   padding: 15px;
@@ -49,12 +49,10 @@ const Handle = styled.div`
   margin-top: 2px;
   margin-bottom: 4px;
   margin-left: 4px;
-  vertical-align: text-bottom;
 `;
 
 const TweetInfo = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
 `;
 
@@ -90,23 +88,13 @@ const FooterIcon = styled.div`
   }
 `;
 
-const FooterRetweetIcon = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-
+const FooterRetweetIcon = styled(FooterIcon)`
   &:hover {
     color: #00b97c;
   }
 `;
 
-const FooterHeartIcon = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-
+const FooterHeartIcon = styled(FooterIcon)`
   color: ${({ liked }) => (liked ? "#f8187f" : "#536471")};
 
   &:hover {
@@ -124,16 +112,6 @@ const MoreButton = styled.button`
 
   &:hover {
     background-color: rgba(29, 155, 240, 0.2);
-    color: #1d9bf0;
-  }
-
-  &:focus {
-    outline: none;
-  }
-
-  &:active {
-    outline: none;
-    background-color: rgba(29, 155, 240, 0.4);
   }
 
   display: flex;
@@ -141,29 +119,27 @@ const MoreButton = styled.button`
   justify-content: center;
 `;
 
-function TweetItem({ tweet, author, currentUsername }) {
+function TweetItem({ tweet, author, onDelete }) {
   const [showModal, setShowModal] = useState(false);
+  const currentUsername = localStorage.getItem("username");
   const isMyTweet = author.username === currentUsername;
-
   const relativeTime = useRelativeTime(tweet.createdAt);
-
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(tweet.likeCount || 0);
 
-  const handleDelete = () => {
-    // 실제 tweetId 사용
-    axios.delete(`/api/tweets/${tweet.tweetId}`).then(() => {
+  const handleDelete = async () => {
+    try {
+      await deleteTweet(tweet.tweetId);
       setShowModal(false);
-    });
+      if (onDelete) onDelete(); // 트윗 삭제 후 목록 갱신
+    } catch (error) {
+      console.error("트윗 삭제 실패:", error);
+    }
   };
 
   const handleLikeClick = () => {
-    if (liked) {
-      setLikeCount((prev) => prev - 1);
-    } else {
-      setLikeCount((prev) => prev + 1);
-    }
-    setLiked(!liked);
+    setLiked((prev) => !prev);
+    setLikeCount((prev) => (liked ? prev - 1 : prev + 1));
   };
 
   return (
@@ -178,15 +154,11 @@ function TweetItem({ tweet, author, currentUsername }) {
                 {author.handle} · {relativeTime}
               </Handle>
             </TweetInfoLeft>
-
-            <MoreButton
-              onClick={(e) => {
-                e.stopPropagation();
-                if (isMyTweet) setShowModal(true);
-              }}
-            >
-              <IoIosMore />
-            </MoreButton>
+            {isMyTweet && (
+              <MoreButton onClick={() => setShowModal(true)}>
+                <IoIosMore />
+              </MoreButton>
+            )}
           </TweetInfo>
 
           <Link
@@ -195,6 +167,7 @@ function TweetItem({ tweet, author, currentUsername }) {
           >
             <Content>{tweet.content}</Content>
           </Link>
+
           <Footer>
             <FooterIcon>
               <FaRegComment /> 0
@@ -213,7 +186,7 @@ function TweetItem({ tweet, author, currentUsername }) {
             </FooterIcon>
           </Footer>
 
-          {showModal && isMyTweet && (
+          {showModal && (
             <DeleteModal
               onClose={() => setShowModal(false)}
               onDelete={handleDelete}

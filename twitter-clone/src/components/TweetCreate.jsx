@@ -6,6 +6,7 @@ import { MdOutlineGifBox } from "react-icons/md";
 import { FaRegFaceSmile } from "react-icons/fa6";
 import { CgPoll } from "react-icons/cg";
 import { IoLocationOutline } from "react-icons/io5";
+import { createTweet } from "../api/tweet";
 
 const Form = styled.form`
   padding: 15px;
@@ -85,9 +86,15 @@ function TweetCreate({ onPost }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!content.trim()) return;
-    await axios.post("/api/tweets", { content });
-    setContent("");
-    if (onPost) onPost();
+
+    try {
+      const userId = Number(localStorage.getItem("userId"));
+      await createTweet({ userId, content });
+      setContent("");
+      if (onPost) onPost();
+    } catch (error) {
+      console.error("Tweet 작성 실패:", error);
+    }
   };
 
   return (
