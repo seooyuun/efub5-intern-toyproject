@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import PageLayout from "../components/PageLayout";
 import styled from "styled-components";
 import TweetItem from "../components/TweetItem";
+import { getUserProfile } from "../api/user";
+import { getTweets } from "../api/tweet";
 
 const Banner = styled.div`
   height: 200px;
@@ -65,34 +67,21 @@ const TweetsSection = styled.div`
 function Profile() {
   const { userId } = useParams();
   const [user, setUser] = useState(null);
-  const [tweets, setTweets] = useState([]);
+  const [tweets, setTweets] = useState([]); // 유저 트윗 목록은 임시로 비워둠
 
   useEffect(() => {
     async function fetchProfile() {
-      const fakeUser = {
-        userId,
-        username: "test_username",
-        handle: "@test_handle",
-        joinDate: "2023-07-26 01:06:55.323",
-        avatarUrl: "",
-        posts: [
-          {
-            tweetId: "1",
-            content: "글입니다.",
-            createdAt: "2023-07-26T01:06:55.323",
-            modifiedAt: "2023-07-26T01:06:55.323",
-          },
-          {
-            tweetId: "2",
-            content: "글2입니다.",
-            createdAt: "2023-07-26T01:06:55.323",
-            modifiedAt: "2023-07-26T01:06:55.323",
-          },
-        ],
-      };
+      try {
+        const data = await getUserProfile(userId);
+        setUser(data);
 
-      setUser(fakeUser);
-      setTweets(fakeUser.posts);
+        const allTweets = await getTweets();
+        const myTweets = allTweets.filter((tweet) => tweet.userId == userId);
+
+        setTweets(myTweets); // ❗ 트윗 목록은 별도 API가 제공될 경우에 채워야 함
+      } catch (error) {
+        console.error("프로필 불러오기 실패:", error);
+      }
     }
 
     fetchProfile();
@@ -112,7 +101,7 @@ function Profile() {
       <InfoSection>
         <DisplayName>{user.username}</DisplayName>
         <Username>{user.handle}</Username>
-        <JoinedDate>가입일: {user.joinDate.slice(0, 10)}</JoinedDate>
+        <JoinedDate>가입일: {user.createdAt?.slice(0, 10)}</JoinedDate>
         <FollowInfo>
           <p>팔로잉</p>
           <p>팔로워</p>
@@ -124,7 +113,7 @@ function Profile() {
             key={tweet.tweetId}
             tweet={tweet}
             author={{ username: user.username, handle: user.handle }}
-            currentUsername={"1"}
+            currentUsername={localStorage.getItem("username")}
           />
         ))}
       </TweetsSection>

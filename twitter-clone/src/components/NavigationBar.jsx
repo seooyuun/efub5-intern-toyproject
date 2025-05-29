@@ -122,14 +122,10 @@ const Username = styled.div`
 
 function NavigationBar() {
   const { pathname } = useLocation();
-  const fakeUser = {
-    userId: "1",
-    username: "test_username",
-    handle: "@test_handle",
-    joinDate: "2023-07-26 01:06:55.323",
-    avatarUrl:
-      "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png",
-  }; // 여기에 로그인된 사용자 ID를 넣으세요
+
+  const userId = localStorage.getItem("userId");
+  const username = localStorage.getItem("username");
+  const handle = localStorage.getItem("handle");
 
   return (
     <NavWrapper>
@@ -180,8 +176,8 @@ function NavigationBar() {
           Communities
         </NavItem>
         <NavItem
-          to={`/users/${fakeUser.userId}`}
-          $active={pathname.startsWith(`/users/${fakeUser.userId}`)}
+          to={`/users/${userId}`}
+          $active={pathname.startsWith(`/users/${userId}`)}
         >
           <IconWrapper>
             <FaRegUser />
@@ -198,15 +194,15 @@ function NavigationBar() {
         <PostButton>Post</PostButton>
       </MenuArea>
 
-      <Profile to={`/users/${fakeUser.userId}`}>
+      <Profile to={`/users/${userId}`}>
         <ProfileInfoLeft>
           <ProfileAvatar
             src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"
             alt="profile 이미지"
           />
           <ProfileInfo>
-            <DisplayName>{fakeUser.username}</DisplayName>
-            <Username>{fakeUser.handle}</Username>
+            <DisplayName>{username}</DisplayName>
+            <Username>{handle}</Username>
           </ProfileInfo>
         </ProfileInfoLeft>
         <IoIosMore />
