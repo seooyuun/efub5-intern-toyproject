@@ -218,7 +218,7 @@ function RightSidebar() {
         <TrendItem>
           <TrendText>
             <TrendMeta>대한민국에서 트렌드 중</TrendMeta>
-            <TrendTitle>나상현씨밴드</TrendTitle>
+            <TrendTitle>한로로언니</TrendTitle>
             <TrendPosts>게시물 3,942개</TrendPosts>
           </TrendText>
           <MoreIcon />
@@ -258,8 +258,8 @@ function RightSidebar() {
           <FollowUser>
             <Avatar src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png" />
             <FollowName>
-              <FollowUsername>진수</FollowUsername>
-              <FollowHandle>@wlstn</FollowHandle>
+              <FollowUsername>서윤</FollowUsername>
+              <FollowHandle>@seoyun</FollowHandle>
             </FollowName>
           </FollowUser>
           <FollowButton>팔로우</FollowButton>
