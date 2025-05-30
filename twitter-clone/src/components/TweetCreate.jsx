@@ -72,7 +72,7 @@ const IconGroup = styled.div`
 const Button = styled.button`
   margin-top: 12px;
   padding: 8px 16px;
-  background-color: ${(props) => (props.active ? "black" : "#87898c")};
+  background-color: ${(props) => (props.$active ? "black" : "#87898c")};
   color: white;
   border: none;
   border-radius: 20px;
