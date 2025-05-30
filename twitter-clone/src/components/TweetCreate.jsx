@@ -126,7 +126,7 @@ function TweetCreate({ onPost }) {
                 <IoLocationOutline />
               </span>
             </IconGroup>
-            <Button type="submit" active={content.trim().length > 0}>
+            <Button type="submit" $active={content.trim().length > 0}>
               Post
             </Button>
           </Footer>
