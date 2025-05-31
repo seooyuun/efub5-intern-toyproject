@@ -181,6 +181,10 @@ const SubscribeButton = styled.button`
   &:hover {
     background-color: #1a8cd8;
   }
+
+  &:focus {
+    outline: 0;
+  }
 `;
 
 const FollowButton = styled.button`
@@ -192,8 +196,12 @@ const FollowButton = styled.button`
   font-size: 14px;
   font-weight: bold;
 
-  &:hover {
-    background-color: #e8f4fd;
+  &:active {
+    background-color: #333333;
+  }
+
+  &:focus {
+    outline: 0;
   }
 `;
 
@@ -218,7 +226,7 @@ function RightSidebar() {
         <TrendItem>
           <TrendText>
             <TrendMeta>대한민국에서 트렌드 중</TrendMeta>
-            <TrendTitle>한로로언니</TrendTitle>
+            <TrendTitle>한로로</TrendTitle>
             <TrendPosts>게시물 3,942개</TrendPosts>
           </TrendText>
           <MoreIcon />
@@ -226,7 +234,7 @@ function RightSidebar() {
         <TrendItem>
           <TrendText>
             <TrendMeta>실시간 트렌드</TrendMeta>
-            <TrendTitle>약속의 8회</TrendTitle>
+            <TrendTitle>하이디라오</TrendTitle>
             <TrendPosts>게시물 5,000개</TrendPosts>
           </TrendText>
           <MoreIcon />

@@ -137,43 +137,43 @@ function NavigationBar() {
           <IconWrapper>
             <GoHomeFill />
           </IconWrapper>
-          Home
+          홈
         </NavItem>
         <NavItem to="/explore">
           <IconWrapper>
             <HiMiniMagnifyingGlass />
           </IconWrapper>
-          Explore
+          탐색하기
         </NavItem>
         <NavItem to="/notifications">
           <IconWrapper>
             <PiBell />
           </IconWrapper>
-          Notifications
+          알림
         </NavItem>
         <NavItem to="/messages">
           <IconWrapper>
             <HiOutlineEnvelope />
           </IconWrapper>
-          Messages
+          쪽지
         </NavItem>
         <NavItem to="/lists">
           <IconWrapper>
             <RiFileList2Line />
           </IconWrapper>
-          Lists
+          리스트
         </NavItem>
         <NavItem to="/bookmarks">
           <IconWrapper>
             <FaRegBookmark />
           </IconWrapper>
-          Bookmarks
+          북마크
         </NavItem>
         <NavItem to="/communities">
           <IconWrapper>
             <HiOutlineUsers />
           </IconWrapper>
-          Communities
+          커뮤니티
         </NavItem>
         <NavItem
           to={`/users/${userId}`}
@@ -182,16 +182,16 @@ function NavigationBar() {
           <IconWrapper>
             <FaRegUser />
           </IconWrapper>
-          Profile
+          프로필
         </NavItem>
 
         <NavItem to="#">
           <IconWrapper>
             <IoEllipsisHorizontalCircleOutline />
           </IconWrapper>
-          More
+          더보기
         </NavItem>
-        <PostButton>Post</PostButton>
+        <PostButton>게시하기</PostButton>
       </MenuArea>
 
       <Profile to={`/users/${userId}`}>

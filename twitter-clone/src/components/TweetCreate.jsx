@@ -59,7 +59,7 @@ const Footer = styled.div`
   align-items: center;
   padding-top: 12px;
   height: 46px;
-  border-top: 1px solid #eff3f4;
+  border-top: none;
 `;
 
 const IconGroup = styled.div`
@@ -70,14 +70,18 @@ const IconGroup = styled.div`
 `;
 
 const Button = styled.button`
-  margin-top: 12px;
-  padding: 8px 16px;
+  margin-top: 6px;
+  padding: 6px 16px;
   background-color: ${(props) => (props.$active ? "black" : "#87898c")};
   color: white;
   border: none;
   border-radius: 20px;
   cursor: pointer;
   font-weight: bold;
+
+  &:focus {
+    outline: 0;
+  }
 `;
 
 function TweetCreate({ onPost }) {
@@ -106,7 +110,7 @@ function TweetCreate({ onPost }) {
             rows="3"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            placeholder="What is happening?!"
+            placeholder="무슨 일이 일어나고 있나요?"
           />
           <Footer>
             <IconGroup>
@@ -127,7 +131,7 @@ function TweetCreate({ onPost }) {
               </span>
             </IconGroup>
             <Button type="submit" $active={content.trim().length > 0}>
-              Post
+              게시하기
             </Button>
           </Footer>
         </Column>
