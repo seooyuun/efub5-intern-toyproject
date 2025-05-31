@@ -86,7 +86,7 @@ const Profile = styled(Link)`
   cursor: pointer;
   text-decoration: none;
   color: inherit;
-  width: fit-content;
+  width: 100%;
 
   &:hover {
     background-color: #e7e7e8;
