@@ -76,9 +76,7 @@ function Profile() {
         setUser(data);
 
         const allTweets = await getTweets();
-        const myTweets = allTweets.filter(
-          (tweet) => tweet.userId === Number(userId)
-        );
+        const myTweets = allTweets.filter((tweet) => tweet.userId == userId);
 
         setTweets(myTweets); // ❗ 트윗 목록은 별도 API가 제공될 경우에 채워야 함
       } catch (error) {
