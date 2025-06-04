@@ -221,7 +221,7 @@ function TweetDetail() {
     try {
       await deleteTweet(tweet.tweetId); // 실제 삭제 API 호출
       setShowModal(false);
-      navigate("/home");
+      navigate("/home", { replace: true });
     } catch (error) {
       console.error("삭제 실패:", error);
     }
