@@ -131,7 +131,7 @@ function TweetItem({ tweet, author, onDelete }) {
     const userId = localStorage.getItem("userId");
     const password = localStorage.getItem("password");
     try {
-      await deleteTweet(tweet.tweetId, userId, password);
+      await deleteTweet(tweet.tweetId);
       setShowModal(false);
       if (onDelete) onDelete(); // 트윗 삭제 후 목록 갱신
     } catch (error) {

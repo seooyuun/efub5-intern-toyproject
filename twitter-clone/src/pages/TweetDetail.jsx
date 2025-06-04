@@ -219,7 +219,7 @@ function TweetDetail() {
 
   const handleDelete = async () => {
     try {
-      await deleteTweet(tweet.tweetId, userId, password); // 실제 삭제 API 호출
+      await deleteTweet(tweet.tweetId); // 실제 삭제 API 호출
       setShowModal(false);
       navigate("/home");
     } catch (error) {

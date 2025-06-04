@@ -22,13 +22,7 @@ export const getTweetDetail = async (tweetId) => {
 };
 
 // 트윗 삭제
-export const deleteTweet = async (tweetId, userId, password) => {
-  const res = await axios.delete(`/tweets/${tweetId}`, {
-    withCredentials: true, // 필요한 경우 (세션 기반 인증 시)
-    headers: {
-      "Auth-Id": userId,
-      "Auth-Password": password,
-    },
-  });
+export const deleteTweet = async (tweetId) => {
+  const res = await axios.delete(`/tweets/${tweetId}`);
   return res.data;
 };
