@@ -19,6 +19,7 @@ if (!localStorage.getItem("userId")) {
   localStorage.setItem("userId", 1);
   localStorage.setItem("username", "testuser1");
   localStorage.setItem("handle", "@testuser1");
+  localStorage.setItem("password", "yourpassword");
 }
 
 function App() {

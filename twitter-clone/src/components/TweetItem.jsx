@@ -128,6 +128,8 @@ function TweetItem({ tweet, author, onDelete }) {
   const [likeCount, setLikeCount] = useState(tweet.likeCount || 0);
 
   const handleDelete = async () => {
+    const userId = localStorage.getItem("userId");
+    const password = localStorage.getItem("password");
     try {
       await deleteTweet(tweet.tweetId, userId, password);
       setShowModal(false);
