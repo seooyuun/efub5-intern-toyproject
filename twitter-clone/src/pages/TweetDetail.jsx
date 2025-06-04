@@ -239,7 +239,7 @@ function TweetDetail() {
   if (loading) return <div>불러오는 중...</div>;
   if (!tweet) return <div>트윗을 찾을 수 없습니다.</div>;
 
-  const relativeTime = useRelativeTime(tweet.createdDate);
+  const relativeTime = useRelativeTime(tweet.createdAt);
 
   return (
     <PageLayout>
