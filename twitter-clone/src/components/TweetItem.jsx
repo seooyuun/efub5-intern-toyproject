@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useRevalidator } from "react-router-dom";
 import { useState } from "react";
 import { IoIosMore } from "react-icons/io";
 import {
@@ -129,7 +129,7 @@ function TweetItem({ tweet, author, onDelete }) {
 
   const handleDelete = async () => {
     try {
-      await deleteTweet(tweet.tweetId);
+      await deleteTweet(tweet.tweetId, userId, password);
       setShowModal(false);
       if (onDelete) onDelete(); // 트윗 삭제 후 목록 갱신
     } catch (error) {
