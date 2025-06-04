@@ -16,7 +16,7 @@ const PageWrapper = styled.div`
 
 // 🔒 테스트용 사용자 정보 localStorage 저장
 if (!localStorage.getItem("userId")) {
-  localStorage.setItem("userId", 1);
+  localStorage.setItem("userId", "1");
   localStorage.setItem("username", "testuser1");
   localStorage.setItem("handle", "@testuser1");
   localStorage.setItem("password", "yourpassword");
