@@ -23,6 +23,11 @@ export const getTweetDetail = async (tweetId) => {
 
 // 트윗 삭제
 export const deleteTweet = async (tweetId) => {
-  const res = await axios.delete(`/tweets/${tweetId}`);
+  const userId = localStorage.getItem("userId");
+  const res = await axios.delete(`/tweets/${tweetId}`, {
+    headers: {
+      "Auth-Id": userId,
+    },
+  });
   return res.data;
 };
