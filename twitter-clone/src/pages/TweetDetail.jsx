@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getTweetDetail } from "../api/tweet";
+import { deleteTweet, getTweetDetail } from "../api/tweet";
 import PageLayout from "../components/PageLayout";
 import { useParams, useNavigate } from "react-router-dom";
 import { IoIosMore } from "react-icons/io";
