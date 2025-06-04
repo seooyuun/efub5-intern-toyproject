@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import TweetComment from "../components/TweetComment";
+import { getTweetDetail } from "../api/tweet";
 import PageLayout from "../components/PageLayout";
 import { useParams, useNavigate } from "react-router-dom";
 import { IoIosMore } from "react-icons/io";
