@@ -16,9 +16,6 @@ import {
 } from "react-icons/fa";
 import { IoArrowBack } from "react-icons/io5";
 
-console.log("PageLayout:", PageLayout);
-console.log("DeleteModal:", DeleteModal);
-
 const Header = styled.div`
   display: flex;
   align-items: center;
@@ -197,6 +194,9 @@ const CommentList = styled.div`
 `;
 
 function TweetDetail() {
+  console.log("PageLayout:", PageLayout);
+  console.log("DeleteModal:", DeleteModal);
+
   const { tweetId } = useParams();
   const navigate = useNavigate();
   const [tweet, setTweet] = useState(null);
