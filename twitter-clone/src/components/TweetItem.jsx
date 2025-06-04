@@ -123,7 +123,7 @@ function TweetItem({ tweet, author, onDelete }) {
   const [showModal, setShowModal] = useState(false);
   const currentUsername = localStorage.getItem("username");
   const isMyTweet = author.username === currentUsername;
-  const relativeTime = useRelativeTime(tweet.createdAt);
+  const relativeTime = useRelativeTime(tweet.createdDate);
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(tweet.likeCount || 0);
 

@@ -105,8 +105,8 @@ function Profile() {
         <Username>{user.handle}</Username>
         <JoinedDate>가입일: {user.createdAt?.slice(0, 10)}</JoinedDate>
         <FollowInfo>
-          <p>팔로잉</p>
-          <p>팔로워</p>
+          <p>팔로잉 100</p>
+          <p>팔로워 100</p>
         </FollowInfo>
       </InfoSection>
       <TweetsSection>

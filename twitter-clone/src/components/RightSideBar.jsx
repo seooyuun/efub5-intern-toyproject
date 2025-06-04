@@ -256,8 +256,8 @@ function RightSidebar() {
           <FollowUser>
             <Avatar src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png" />
             <FollowName>
-              <FollowUsername>test.......</FollowUsername>
-              <FollowHandle>@testtttt</FollowHandle>
+              <FollowUsername>은서</FollowUsername>
+              <FollowHandle>@yyepot</FollowHandle>
             </FollowName>
           </FollowUser>
           <FollowButton>팔로우</FollowButton>
@@ -267,7 +267,7 @@ function RightSidebar() {
             <Avatar src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png" />
             <FollowName>
               <FollowUsername>서윤</FollowUsername>
-              <FollowHandle>@seoyun</FollowHandle>
+              <FollowHandle>@choiseovun</FollowHandle>
             </FollowName>
           </FollowUser>
           <FollowButton>팔로우</FollowButton>
