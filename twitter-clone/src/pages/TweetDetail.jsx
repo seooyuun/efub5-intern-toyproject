@@ -122,10 +122,10 @@ const FooterHeartIcon = styled.div`
   gap: 6px;
   cursor: pointer;
 
-  color: ${({ liked }) => (liked ? "#f8187f" : "#536471")};
+  color: ${({ $liked }) => ($liked ? "#f8187f" : "#536471")};
 
   &:hover {
-    color: ${({ liked }) => (liked ? "#f8187f" : "#f8187f")};
+    color: ${({ $liked }) => ($liked ? "#f8187f" : "#f8187f")};
   }
 `;
 
@@ -202,6 +202,8 @@ function TweetDetail() {
   const [likeCount, setLikeCount] = useState(0); // 서버 연동되면 변경
   const [loading, setLoading] = useState(true);
 
+  const relativeTime = useRelativeTime(tweet?.createdDate || "");
+
   useEffect(() => {
     async function fetchTweet() {
       try {
@@ -239,8 +241,6 @@ function TweetDetail() {
   if (loading) return <div>불러오는 중...</div>;
   if (!tweet) return <div>트윗을 찾을 수 없습니다.</div>;
 
-  const relativeTime = useRelativeTime(tweet.createdDate || "");
-
   return (
     <PageLayout>
       <Header>
@@ -273,7 +273,7 @@ function TweetDetail() {
         <FooterRetweetIcon>
           <FaRetweet /> 0
         </FooterRetweetIcon>
-        <FooterHeartIcon onClick={handleLikeClick} liked={liked}>
+        <FooterHeartIcon onClick={handleLikeClick} $liked={liked}>
           {liked ? <FaHeart /> : <FaRegHeart />} {likeCount}
         </FooterHeartIcon>
         <FooterIcon>

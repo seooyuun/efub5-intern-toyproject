@@ -95,10 +95,10 @@ const FooterRetweetIcon = styled(FooterIcon)`
 `;
 
 const FooterHeartIcon = styled(FooterIcon)`
-  color: ${({ liked }) => (liked ? "#f8187f" : "#536471")};
+  color: ${({ $liked }) => ($liked ? "#f8187f" : "#536471")};
 
   &:hover {
-    color: ${({ liked }) => (liked ? "#f8187f" : "#f8187f")};
+    color: ${({ $liked }) => ($liked ? "#f8187f" : "#f8187f")};
   }
 `;
 
@@ -177,7 +177,7 @@ function TweetItem({ tweet, author, onDelete }) {
             <FooterRetweetIcon>
               <FaRetweet /> 0
             </FooterRetweetIcon>
-            <FooterHeartIcon onClick={handleLikeClick} liked={liked}>
+            <FooterHeartIcon onClick={handleLikeClick} $liked={liked}>
               {liked ? <FaHeart /> : <FaRegHeart />} {likeCount}
             </FooterHeartIcon>
             <FooterIcon>
