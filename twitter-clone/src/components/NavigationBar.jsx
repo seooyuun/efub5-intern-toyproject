@@ -127,6 +127,8 @@ function NavigationBar() {
   const username = localStorage.getItem("username");
   const handle = localStorage.getItem("handle");
 
+  if (!userId || !username || !handle) return null;
+
   return (
     <NavWrapper>
       <MenuArea>

@@ -2,8 +2,11 @@ import { useMemo } from "react";
 
 function useRelativeTime(dateString) {
   const relativeTime = useMemo(() => {
+    if (!dateString) return "";
+
     const now = new Date();
     const time = new Date(dateString);
+    if (isNaN(time)) return "";
 
     const diff = Math.floor((now - time) / 1000);
 
